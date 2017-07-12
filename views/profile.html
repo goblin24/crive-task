@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link href="/stylesheet.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script>
-        var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope, $http) {
-            $http.get("/profile")
-                .then(function(response) {
-                    $scope.myWelcome = response.data;
-                });
-        });
-    </script>
 </head>
 <body>
 
@@ -21,17 +11,15 @@
 <header><h3>Your profile</h3></header>
 
     <div class="wrapper">
-    <a href="">Profile</a>
+        <a href="#profile">Profile</a>
         <a href="#contact">Contact</a>
 
-
-    <div class="page" data-ng-app="myApp" data-ng-controller="myCtrl">
-    Name {{ myWelcome}}
-    Description <%= User.name %>
-    City
+    <div class="page">
+        <label>Name</label>
+   <label> Description</label>
+    <label>City</label>
 
     </div>
-
       <div class="page">
 
         <form id="contact" class="form-small" method="post" action="/sendmail">
@@ -41,6 +29,7 @@
             <input type="submit" name="send" value="Send">
         </form>
     </div>
+
     </div>
 </div>
 </body>

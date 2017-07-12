@@ -16,15 +16,18 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 var configDB = require('./config/database');
 
-mongoose.connect(configDB.url ,function (error) {
-    if(!error)
-    console.log("Connected to Database");
-});
+mongoose.connect(configDB.url , {
+    useMongoClient: true }
+    ,function (error) {
+        if(!error)
+            console.log("Connected to Database");
+    }
+);
 
 app.use(express.static('./public'));
 
 app.use('/',routes);
-app.use('/me',routes);
+
 
 app.listen(3000,function() {
 console.log("Server Running at port 3000")

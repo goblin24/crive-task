@@ -52,17 +52,18 @@ header {
 .form-small label {
     grid-column: label1;
     grid-row: auto;
-    margin: 10px 0px;
+    margin: 10px;
 
 }
 
 .form-small input {
     grid-column: input1;
     grid-row: auto;
-    margin: 2px 0px;
+    margin: 2px;
 
 }
 
 .page {
     height: 100vh;
+    margin: 100px;
 }

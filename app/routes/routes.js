@@ -9,6 +9,16 @@ var app = express();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const nodemailer = require('nodemailer');
+//
+// var multer = require('multer');
+//  var fs = require('fs');
+// //
+// app.use(multer({ dest: './uploads/', rename: function (fieldname, filename) {
+//     return filename;
+// },
+// }));
+
+
 
 var adminSchema = new Schema({
     name : String,
@@ -28,14 +38,14 @@ var UserSchema = new Schema({
 var User = mongoose.model('User', UserSchema);
 var Admin = mongoose.model('Admin', adminSchema);
 
+
+// router.post('/api/photo',function(req,res){
+//     var newPic = new User();
+//     newPic.image.data = fs.readFileSync(req.files.userPhoto.path);
+//         newPic.image.contentType =  'image/png';
+//         newPic.save();
 //
-// User.img.data = fs.readFileSync(imgPath);
-// User.img.contentType = 'image/png';
-// User.save(function (err, user) {
-//     if (err) throw err;
-
-
-
+// });
 
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
@@ -113,7 +123,6 @@ router.post('/create', function (req , res)  {
         "name" : req.body.name,
         "email" : req.body.email,
         "description" : req.body.desc,
-
         city : req.body.city,
         instaname : req.body.instaname } , function (err, user) {
             if (err) return handleError(err);
@@ -125,8 +134,9 @@ router.post('/create', function (req , res)  {
 router.get('/profile/:instaname', FindUser ,function (req,res, next)
 {
     //  res.send(req.params.instaname);
-   res.sendFile('profile.html', {root: path.join(__dirname, '/../../views')} );
+    res.sendFile('profile.html', {root: path.join(__dirname, '/../../views')} ) ;
 })
+
 
 function FindUser(req, res, next) {
 
@@ -142,16 +152,11 @@ function FindUser(req, res, next) {
         }
         else {
             console.log("user" + req.params.instaname);
-          //  res.json(user);
             return next();
         }
     } )
 }
 
-router.get('/profile/:instaname/contact', function (req, res) {
-    res.sendFile('contact.html', {root: path.join(__dirname, '/../../views')} );
-
-})
 
 
 router.post('/sendmail', SendMail, function (req,res) {
@@ -159,12 +164,16 @@ router.post('/sendmail', SendMail, function (req,res) {
 })
 
 function SendMail(req,res) {
+    Admin.find( { },{ email:1 , _id: 0} , function (err, admin) {
+
+        console.log(admin + ' this is the variable');
+
     var smtpTransport = nodemailer.createTransport('smtps://saintgobs@gmail.com:goblin1994@smtp.gmail.com');
 var MailOptions = {
     from: req.body.useremail,
-   // to :  ,
+    to :  admin[1],
     subject : "Hello",
-    text : req.body.message
+    html: "<b>" + req.body.username + req.body.message +"<b>",
 }
     smtpTransport.sendMail(MailOptions, function (error, response) {
         if (error) {
@@ -172,10 +181,19 @@ var MailOptions = {
         } else {
             console.log("Message sent: " + response.message);
         }
-
         smtpTransport.close();
+})
 })
 }
 
+router.get('/alluser' , function (req, res) {
+    User.find({}).exec( function (err, user) {
+        if(err)
+            console.log("error occured" + err);
+        else
+           console.log("sucessfull"+ user);
+         res.jsonp(user);
+    })
+})
 
 module.exports = router;
