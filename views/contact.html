@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+    <link href="stylesheet.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <header><h3>Contact Page</h3></header>
+
+    <div  class="wrapper">
+
+        <form id="contact" class="form-small" method="post" action="/sendmail">
+            <label>Name</label> <input type="text" name="username">
+            <label>Email</label> <input type="text" name="useremail">
+            <label>Message</label> <textarea rows="5" cols="50" name="message"></textarea>
+            <input type="submit" name="send" value="Send">
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

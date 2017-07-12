@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+    <link href="stylesheet.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+<h3>Welcome Admin</h3>
+    <div class="wrapper">
+<h3>Enter User details</h3>
+<form class="form-small" action="/create" method="POST">
+    <label>Name</label><input type="text" name="name">
+    <label>Email</label><input type="email" name="email">
+    <label>Image</label><input type="file" name="image">
+    <label>Description</label><input type="text" name="desc">
+    <label>City</label><input type="text" name="city">
+    <label>Instagram Username</label><input type="text" name="instaname">
+    <input type="submit" value="Update" name="add-user">
+</form>
+    </div>
+</div>
+</body>
+</html>
