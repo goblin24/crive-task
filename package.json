@@ -8,9 +8,7 @@
     "nodemailer": "^4.0.1"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": { { "scripts": { "start": "node app.js"} },},
   "author": "",
   "license": "ISC",
   "description": ""
