@@ -61,7 +61,7 @@ router.get('/', function (req , res) {
 
 
 router.get('/login' , function (req,res) {
-    res.sendFile('Login.html' ,{ root: path.join(__dirname, '/../../views')});
+    res.sendFile('login.html' ,{ root: path.join(__dirname, '/../../views')});
 });
 
 
