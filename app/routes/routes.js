@@ -103,19 +103,22 @@ router.post('/adminpage', isLoggedIn , function(req, res) {
 
 function isLoggedIn(req,res, next) {
     Admin.findOne( {email : req.body.email ,password : req.body.password } ,  function (err, admin) {
-        if(err) {
+        if (err) {
             console.log(err);
+            res.redirect('/login');
         }
-        else if(admin){
-           return next();
+        if (!admin)
+        {
+            console.log('Invalid Login');
+            res.redirect('/login');
         }
         else {
-            //res.sendFile('Login.html' ,{ root: path.join(__dirname, '/../../views')});
-           res.redirect('/login');
-            console.log('Invalid Login');
-        }}
-     )
+            return next();
+        }
+    })
+
 }
+
 
 router.post('/create', function (req , res)  {
     User.create({
