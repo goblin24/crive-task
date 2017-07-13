@@ -95,14 +95,14 @@ router.post('/signup', function (req ,res) {
 // })
 
 
-router.post('/adminpage', isLoggedIn , function(req, res, next) {
+router.post('/adminpage', isLoggedIn , function(req, res) {
     res.sendFile('admin_profile.html', { root: path.join(__dirname, '/../../views')});
 })
 
 
 
 function isLoggedIn(req,res, next) {
-    Admin.findOne( {email : req.body.email ,password : req.body.password }).lean().exec( function (err, admin) {
+    Admin.findOne( {email : req.body.email ,password : req.body.password } ,  function (err, admin) {
         if(err) {
             console.log(err);
         }
@@ -113,9 +113,8 @@ function isLoggedIn(req,res, next) {
             //res.sendFile('Login.html' ,{ root: path.join(__dirname, '/../../views')});
            res.redirect('/login');
             console.log('Invalid Login');
-        }
-    } )
-
+        }}
+     )
 }
 
 router.post('/create', function (req , res)  {
@@ -141,14 +140,10 @@ router.get('/profile/:instaname', FindUser ,function (req,res, next)
 function FindUser(req, res, next) {
 
     var namea = req.params.instaname;
-    User.findOne( { instaname :  namea }).exec( function (err, user) {
+    User.findOne( { instaname :  namea },  function (err, user) {
         if(err) {
             console.log("error");
             res.send(err + req.params.instaname);
-        }
-        else if(!user){
-            console.log("not found"+ req.params.instaname);
-            res.redirect('/');
         }
         else {
             console.log("user" + req.params.instaname);
